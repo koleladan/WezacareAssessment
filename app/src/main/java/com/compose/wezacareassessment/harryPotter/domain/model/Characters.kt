@@ -1,6 +1,8 @@
-package com.compose.wezacareassessment.harryPotter.data.remote.dto
+package com.compose.wezacareassessment.harryPotter.domain.model
 
-data class CharactersDtoItem(
+import com.compose.wezacareassessment.harryPotter.data.remote.dto.WandDto
+
+data class Characters(
     val actor: String,
     val alive: Boolean,
     val alternate_actors: List<String>,
