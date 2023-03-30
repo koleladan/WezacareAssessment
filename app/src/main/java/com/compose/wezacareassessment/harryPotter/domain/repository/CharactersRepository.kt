@@ -5,5 +5,5 @@ import com.compose.wezacareassessment.harryPotter.domain.model.Characters
 import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepository {
-    fun getAllCharacters(): Flow<Resource<Characters>>
+    fun getAllCharacters(fetchFromRemote: Boolean, query: String?): Flow<Resource<Characters>>
 }

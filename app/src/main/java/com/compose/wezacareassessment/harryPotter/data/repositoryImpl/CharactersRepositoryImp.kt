@@ -12,7 +12,7 @@ import retrofit2.HttpException
 class CharactersRepositoryImp(
     private val apiService: Apiservice
 ):CharactersRepository {
-    override fun getAllCharacters(): Flow<Resource<Characters>> = flow {
+    override fun getAllCharacters(fetchFromRemote: Boolean, query: String?): Flow<Resource<Characters>> = flow {
 
         try {
             val remoteData = apiService.getCharacterList().toCharacters()

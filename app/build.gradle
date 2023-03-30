@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.stockmarketapp'
+    namespace 'com.compose.wezacareassessment'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.stockmarketapp"
+        applicationId "com.compose.wezacareassessment"
         minSdk 21
         targetSdk 33
         versionCode 1
