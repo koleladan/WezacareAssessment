@@ -45,17 +45,19 @@ fun CharactersItem(
             Column(modifier = Modifier
                 .fillMaxHeight()
             ) {
-                Text(
-                    text = character.name,
-                    style = MaterialTheme.typography.h6,
-                    textAlign = TextAlign.Center,
-                    color = Color.Black,
-                    modifier = modifier
-                        .padding(start = 8.dp, top = 5.dp)
-                        .fillMaxWidth()
+                character.name?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.h6,
+                        textAlign = TextAlign.Center,
+                        color = Color.Black,
+                        modifier = modifier
+                            .padding(start = 8.dp, top = 5.dp)
+                            .fillMaxWidth()
 
 
-                )
+                    )
+                }
 
                 val ancestryStringStyle = listOf(
                     AnnotatedString.Range(

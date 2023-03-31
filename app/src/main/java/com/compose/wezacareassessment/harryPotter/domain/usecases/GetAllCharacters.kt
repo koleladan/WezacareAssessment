@@ -6,14 +6,15 @@ import com.compose.wezacareassessment.harryPotter.domain.repository.CharactersRe
 import kotlinx.coroutines.flow.Flow
 
 class GetAllCharacters(
-    private val fetchFromRemote:Boolean = false,
-    private val query:String?,
     private val repository: CharactersRepository
+
 ) {
-    operator fun  invoke(): Flow<Resource<Characters>>{
+    operator fun  invoke(
+        query: String
+    ): Flow<Resource<List<Characters>>> {
 
 
-        return  repository.getAllCharacters(fetchFromRemote, query)
+        return  repository.getAllCharacters(query)
     }
 
 }

@@ -19,13 +19,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object HarryPotterModule{
 
-//    @Provides
-//    @Singleton
-//    fun providesAllCharactersUseCases(
-//        repository: CharactersRepository
-//    ):GetAllCharacters{
-//        return GetAllCharacters(repository)
-//    }
+    @Provides
+    @Singleton
+    fun providesAllCharactersUseCases(
+        repository: CharactersRepository,
+    ):GetAllCharacters{
+        return GetAllCharacters(repository)
+    }
 
     @Provides
     @Singleton

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.compose.wezacareassessment.core.util.Resource
+import com.compose.wezacareassessment.harryPotter.domain.model.Characters
 import com.compose.wezacareassessment.harryPotter.domain.repository.CharactersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -39,32 +40,32 @@ class CharactersViewModel @Inject constructor(
     }
 
     private fun getCharacters(
-        query: String? = state.searchQuery?.lowercase(),
-        fetchFromRemote:Boolean = false
+        query: String? = state.searchQuery?.lowercase()
     ) {
         viewModelScope.launch {
-            repository
-                .getAllCharacters(fetchFromRemote, query)
-                .collect{result->
-                    when(result){
-                        is Resource.Success ->{
-                            result.data?. let { items ->
+            if (query != null) {
+                repository
+                    .getAllCharacters(query)
+                    .collect{result->
+                        when(result){
+                            is Resource.Success ->{
+                                result.data?. let { items ->
+                                    state = state.copy(
+                                        characters = items as List<Characters>
+                                    )
+                                }
+                            }
+                            is Resource.Error -> Unit
+                            is Resource.Loading ->{
                                 state = state.copy(
-                                    characters = listOf(items)
+                                    isLoading = result.isLoading
                                 )
                             }
                         }
-                        is Resource.Error -> Unit
-                        is Resource.Loading ->{
-                            state = state.copy(
-                                isLoading = result.isLoading
-                            )
-                        }
+
+
                     }
-
-
-
-                }
+            }
         }
 
     }

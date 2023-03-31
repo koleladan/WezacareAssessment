@@ -20,9 +20,9 @@ data class CharactersDto(
     val name: String,
     val patronus: String,
     val species: String,
-    val wand: WandDto,
+    val wand:WandDto,
     val wizard: Boolean,
-    val yearOfBirth: Int
+    val yearOfBirth: Int?
 ){
     fun  toCharacters(): Characters{
         return Characters(
@@ -43,7 +43,7 @@ data class CharactersDto(
             name = name,
             patronus = patronus,
             species = species,
-            wand = wand,
+            wand = wand.toWand(),
             wizard = wizard,
             yearOfBirth = yearOfBirth
         )

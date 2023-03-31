@@ -48,24 +48,28 @@ fun CharactersScreen(
             }
         LazyColumn(modifier = Modifier.fillMaxSize()
         ){
-            state.characters?.size?.let {
-                items(it){ i ->
-                    val character = state.characters[i]
-                    CharactersItem(
-                        character = character,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clickable {
-                                //TODO
-                            }
-                            .padding(16.dp)
-                    )
-                    if (i < state.characters.size){
-                        Divider(modifier = Modifier.padding(
-                            horizontal = 16.dp
-                        ))
-                    }
+            state.characters?.size.let {
+                if (it != null) {
+                    items(it){ i ->
+                        val character = state.characters?.get(i)
+                        if (character != null) {
+                            CharactersItem(
+                                character = character,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clickable {
+                                        //TODO
+                                    }
+                                    .padding(16.dp)
+                            )
+                        }
+                        if (i < state.characters?.size!!){
+                            Divider(modifier = Modifier.padding(
+                                horizontal = 16.dp
+                            ))
+                        }
 
+                    }
                 }
             }
 

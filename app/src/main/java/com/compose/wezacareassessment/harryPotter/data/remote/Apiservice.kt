@@ -5,10 +5,10 @@ import retrofit2.http.GET
 
 interface Apiservice {
     @GET("characters")
-    suspend fun getCharacterList():CharactersDto
+    suspend fun getCharacterList():List<CharactersDto>
 
     companion object {
-        const val BASE_URL = "https://hp-api.onrender.com/"
+        const val BASE_URL = "https://hp-api.onrender.com/api/"
     }
 
 
