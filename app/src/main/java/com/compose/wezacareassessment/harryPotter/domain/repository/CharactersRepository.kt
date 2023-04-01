@@ -8,4 +8,6 @@ interface CharactersRepository {
     fun getAllCharacters(
         query: String
     ): Flow<Resource<List<Characters>>>
+
+    suspend fun getCharacterinfo(id:String): Resource<List<Characters>>
 }

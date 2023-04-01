@@ -21,12 +21,12 @@ class CharactersRepositoryImp(
             emit(Resource.Success(remoteData))
 
         }catch (e: IOException){
-            e.printStackTrace()
+           e.printStackTrace()
             emit(Resource.Error(
                 message = "an error occurred"
             ))
         }catch (e:HttpException){
-            e.printStackTrace()
+           e.printStackTrace()
             emit(Resource.Error(
                 message = "an error occurred"
             ))
@@ -34,4 +34,26 @@ class CharactersRepositoryImp(
 
 
     }
+
+    override suspend fun getCharacterinfo(id: String):Resource<List<Characters>> {
+        return try {
+
+            val result = apiService.getCharacterInfo(id).map { it.toCharacters() }
+            Resource.Success(result)
+
+        }
+        catch (e:IOException){
+            e.printStackTrace()
+            Resource.Error(
+                message = "Could not load character information"
+            )
+        }catch (e:HttpException) {
+            e.printStackTrace()
+            Resource.Error(
+                message = "Could not load character Info"
+            )
+        }
+
+    }
+
 }
