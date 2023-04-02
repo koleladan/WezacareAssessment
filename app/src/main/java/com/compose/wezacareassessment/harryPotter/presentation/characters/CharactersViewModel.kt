@@ -1,23 +1,27 @@
 package com.compose.wezacareassessment.harryPotter.presentation.characters
 
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.compose.wezacareassessment.core.util.Resource
-import com.compose.wezacareassessment.harryPotter.domain.model.Characters
-import com.compose.wezacareassessment.harryPotter.domain.repository.CharactersRepository
+import com.compose.wezacareassessment.harryPotter.domain.usecases.GetCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
-    private val repository: CharactersRepository
+    private val getCharactersUseCase: GetCharactersUseCase
 ): ViewModel() {
-     var state by mutableStateOf(CharactersState())
+    private val _state = mutableStateOf(CharactersState())
+    var state: State<CharactersState> = _state
+
+    private val _searchQuery = mutableStateOf("")
+    val searchQuery: State<String> = _searchQuery
     private var searchJob: Job? = null
 
     init {
@@ -28,7 +32,8 @@ class CharactersViewModel @Inject constructor(
     fun onEvent(event: CharactersEvent){
         when(event){
             is CharactersEvent.OnSearchQueryChange ->{
-                state = state.copy(searchQuery = event.query)
+                _searchQuery.value = event.query
+                //state = state.value.copy(searchQuery = event.query)
                 searchJob?.cancel()
                 searchJob = viewModelScope.launch{
                     delay(500L)
@@ -40,32 +45,27 @@ class CharactersViewModel @Inject constructor(
     }
 
     private fun getCharacters(
-        query: String? = state.searchQuery?.lowercase()
+        query: String? = state.value.searchQuery?.lowercase(),
     ) {
-        viewModelScope.launch {
-            if (query != null) {
-                repository
-                    .getAllCharacters(query)
-                    .collect{result->
-                        when(result){
-                            is Resource.Success ->{
-                                result.data?. let { items ->
-                                    state = state.copy(
-                                        characters = items as List<Characters>
-                                    )
-                                }
-                            }
-                            is Resource.Error -> Unit
-                            is Resource.Loading ->{
-                                state = state.copy(
-                                    isLoading = result.isLoading
-                                )
-                            }
-                        }
-
+        if (query != null) {
+            getCharactersUseCase(query).onEach { result ->
+                when(result){
+                    is Resource.Success ->{
+                        _state.value = CharactersState(characters = result.data ?: emptyList())
 
                     }
-            }
+                    is Resource.Error ->{
+                        _state.value = CharactersState(
+                            error = result.message ?: "An unexpected error occurred"
+                        )
+
+                    }
+                    is Resource.Loading ->{
+                        _state.value = CharactersState(isLoading = true)
+
+                    }
+                }
+            }.launchIn(viewModelScope)
         }
 
     }

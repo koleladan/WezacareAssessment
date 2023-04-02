@@ -6,12 +6,11 @@ data class WandDto(
     val core: String?,
     val length: Double?,
     val wood: String?
-){
-    fun toWand(): Wand{
-        return Wand(
-            core = core,
-            length = length,
-            wood = wood
-        )
-    }
+)
+fun WandDto.toWand(): Wand{
+    return Wand(
+        core =core,
+        length = length,
+        wood =wood
+    )
 }
