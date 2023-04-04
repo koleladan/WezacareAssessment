@@ -7,10 +7,10 @@ import retrofit2.http.Path
 
 interface Apiservice {
     @GET("/api/characters")
-    suspend fun getCharacters(query: String):List<CharactersDto>
+    suspend fun getCharacters(): List<CharactersDto>
 
-    @GET("characters/{characterId}")
-    suspend fun getCharacterInfo(@Path("characterId")characterId:String):CharacterInfoDto
+    @GET("/api/characters/{characterId}")
+    suspend fun getCharacterInfo(@Path("characterId") characterId: String): CharacterInfoDto
 
     companion object {
         const val BASE_URL = "https://hp-api.onrender.com"

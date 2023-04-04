@@ -1,17 +1,14 @@
 package com.compose.wezacareassessment.harryPotter.presentation.characters
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Divider
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 
@@ -24,55 +21,75 @@ fun CharactersScreen(
     navigator: DestinationsNavigator,
     viewModel: CharactersViewModel = hiltViewModel()
 
-){
+) {
     val state = viewModel.state.value
-    Column(modifier = Modifier
+    Box(modifier = Modifier
         .fillMaxSize()
     ) {
 
-            state.searchQuery?.let { it ->
-                OutlinedTextField(
-                    value = it,
-                    onValueChange = {
-                        viewModel.onEvent(
-                            CharactersEvent.OnSearchQueryChange(it)
-                        )
-                    },
+//            state.searchQuery?.let { it ->
+//                OutlinedTextField(
+//                    value = it,
+//                    onValueChange = {
+//                        viewModel.onEvent(
+//                            CharactersEvent.OnSearchQueryChange(it)
+//                        )
+//                    },
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(16.dp),
+//                    placeholder = {
+//                        Text(text = "Search...")
+//                    },
+//                    maxLines = 1,
+//                    singleLine = true
+//                )
+//            }
+        LazyColumn(modifier = Modifier.fillMaxSize()
+        ) {
+            items(state.characters) { character ->
+                CharactersItem(
+                    navigator,
+                    character = character
+                )
+
+            }
+        }
+
+        if (state.error?.isNotBlank() == true) {
+            state.error?.let {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colors.error,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    placeholder = {
-                        Text(text = "Search...")
-                    },
-                    maxLines = 1,
-                    singleLine = true
+                        .padding(horizontal = 20.dp)
+                        .align(Alignment.Center)
                 )
             }
-        LazyColumn(modifier = Modifier.fillMaxSize()
-        ){
-            state.characters?.size.let {
-                if (it != null) {
-                    items(it){ i ->
-                        val character = state.characters?.get(i)
-                        if (character != null) {
-                            CharactersItem(
-                                navigator,
-                                character = character,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp)
-
-                            )
-                        }
-                        if (i < state.characters?.size!!){
-                            Divider(modifier = Modifier.padding(
-                                horizontal = 16.dp
-                            ))
-                        }
-
-                    }
-                }
+            if (state.isLoading){
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
+
+
+
+//            state.characters?.size.let {
+//                    items(it.size) { i ->
+//                        val character = it[i]
+//                            CharactersItem(
+//                                navigator,
+//                                character = character,
+//                                modifier = Modifier
+//                                    .fillMaxSize()
+//                                    .padding(16.dp)
+//
+//                            )
+//                        }
+//
+//                    }
+
+
 
 
         }

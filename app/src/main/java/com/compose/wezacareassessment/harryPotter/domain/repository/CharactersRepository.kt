@@ -6,7 +6,7 @@ import com.compose.wezacareassessment.harryPotter.data.remote.dto.CharactersDto
 
 
 interface CharactersRepository {
-    suspend fun getCharacters(query: String): List<CharactersDto>
+    suspend fun getCharacters(): List<CharactersDto>
 
     suspend fun getCharacterInfo(characterId:String): CharacterInfoDto
 }

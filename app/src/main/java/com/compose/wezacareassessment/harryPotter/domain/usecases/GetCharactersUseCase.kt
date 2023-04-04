@@ -13,17 +13,17 @@ import javax.inject.Inject
 class GetCharactersUseCase @Inject constructor(
     private val repository: CharactersRepository
 ) {
-    operator fun invoke(query:String):Flow<Resource<List<Characters>>> = flow {
+    operator fun invoke(): Flow<Resource<List<Characters>>> = flow {
         try {
-            emit(Resource.Loading())
-            val characters = repository.getCharacters(query).map { it.toCharacters() }
-            emit(Resource.Success(characters))
+            emit(Resource.Loading<List<Characters>>())
+            val characters = repository.getCharacters().map { it.toCharacters() }
+            emit(Resource.Success<List<Characters>>(characters))
 
-        }catch (e: HttpException){
-            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occured"))
+        }catch (e: HttpException) {
+            emit(Resource.Error<List<Characters>>(e.localizedMessage ?: "An unexpected error occured"))
 
-        }catch (e: IOException){
-            emit(Resource.Error("Couldn't reach server. Check your internet connection"))
+        }catch (e: IOException) {
+            emit(Resource.Error<List<Characters>>("Couldn't reach server. Check your internet connection"))
 
         }
     }

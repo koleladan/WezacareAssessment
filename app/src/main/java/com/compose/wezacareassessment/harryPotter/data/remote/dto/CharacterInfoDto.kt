@@ -39,7 +39,7 @@ fun CharacterInfoDto.toCharacterInfo(): CharacterInfo{
         hogwartsStaff = hogwartsStaff,
         hogwartsStudent = hogwartsStudent,
         house = house,
-        id = id,
+        characterId = id,
         image = image,
         name = name,
         patronus = patronus,

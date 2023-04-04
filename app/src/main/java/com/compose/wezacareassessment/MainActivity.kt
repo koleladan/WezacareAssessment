@@ -10,7 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.compose.wezacareassessment.harryPotter.presentation.characters.NavGraphs
+import com.compose.wezacareassessment.harryPotter.presentation.NavGraphs
+
 import com.compose.wezacareassessment.ui.theme.WezacareassessmentTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint

@@ -15,7 +15,7 @@ data class CharacterInfo(
     val hogwartsStaff: Boolean?,
     val hogwartsStudent: Boolean?,
     val house: String?,
-    val id: String?,
+    val characterId: String?,
     val image: String?,
     val name: String?,
     val patronus: String?,

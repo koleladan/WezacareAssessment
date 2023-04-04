@@ -13,6 +13,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+
+
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase
@@ -20,47 +23,48 @@ class CharactersViewModel @Inject constructor(
     private val _state = mutableStateOf(CharactersState())
     var state: State<CharactersState> = _state
 
-    private val _searchQuery = mutableStateOf("")
-    val searchQuery: State<String> = _searchQuery
-    private var searchJob: Job? = null
+//    private val _searchQuery = mutableStateOf("")
+//    val searchQuery: State<String> = _searchQuery
+
+    //private var searchJob: Job? = null
 
     init {
         getCharacters()
     }
 
 
-    fun onEvent(event: CharactersEvent){
-        when(event){
-            is CharactersEvent.OnSearchQueryChange ->{
-                _searchQuery.value = event.query
-                //state = state.value.copy(searchQuery = event.query)
-                searchJob?.cancel()
-                searchJob = viewModelScope.launch{
-                    delay(500L)
-                    getCharacters()
-                }
-            }
-        }
-
-    }
+//    fun onEvent(event: CharactersEvent){
+//        when(event){
+//            is CharactersEvent.OnSearchQueryChange ->{
+//                _searchQuery.value = event.query
+//                //state = state.value.copy(searchQuery = event.query)
+//                searchJob?.cancel()
+//                searchJob = viewModelScope.launch{
+//                    delay(500L)
+//                    getCharacters()
+//                }
+//            }
+//        }
+//
+//    }
 
     private fun getCharacters(
-        query: String? = state.value.searchQuery?.lowercase(),
+        //query: String? = state.value.searchQuery?.lowercase(),
     ) {
-        if (query != null) {
-            getCharactersUseCase(query).onEach { result ->
-                when(result){
-                    is Resource.Success ->{
+        //if (query != null) {
+            getCharactersUseCase().onEach { result ->
+                when (result) {
+                    is Resource.Success -> {
                         _state.value = CharactersState(characters = result.data ?: emptyList())
 
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         _state.value = CharactersState(
                             error = result.message ?: "An unexpected error occurred"
                         )
 
                     }
-                    is Resource.Loading ->{
+                    is Resource.Loading -> {
                         _state.value = CharactersState(isLoading = true)
 
                     }
@@ -68,5 +72,5 @@ class CharactersViewModel @Inject constructor(
             }.launchIn(viewModelScope)
         }
 
-    }
+    //}
 }

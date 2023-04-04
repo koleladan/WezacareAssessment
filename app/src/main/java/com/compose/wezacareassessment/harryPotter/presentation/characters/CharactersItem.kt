@@ -38,7 +38,7 @@ fun CharactersItem(
         elevation = 4.dp,
         onClick = {
             navigator.navigate(
-                CharacterInfoScreenDestination
+                CharacterInfoScreenDestination()
             )
         }
 
