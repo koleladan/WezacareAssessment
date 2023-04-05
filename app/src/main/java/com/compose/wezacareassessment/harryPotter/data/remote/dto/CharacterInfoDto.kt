@@ -1,12 +1,12 @@
 package com.compose.wezacareassessment.harryPotter.data.remote.dto
 
-import com.compose.wezacareassessment.harryPotter.domain.model.Characters
+import com.compose.wezacareassessment.harryPotter.domain.model.CharacterInfo
 import com.compose.wezacareassessment.harryPotter.domain.model.Wand
 
-data class CharactersDto(
+data class CharacterInfoDto(
     val actor: String?,
     val alive: Boolean?,
-    val alternate_actors: List<Any>?,
+    val alternate_actors: List<String>?,
     val alternate_names: List<String>?,
     val ancestry: String?,
     val dateOfBirth: String?,
@@ -25,16 +25,26 @@ data class CharactersDto(
     val wizard: Boolean?,
     val yearOfBirth: Int?
 )
-fun CharactersDto.toCharacters(): Characters{
-    return Characters(
-        actor = actor,
+fun CharacterInfoDto.toCharacterInfo(): CharacterInfo{
+    return CharacterInfo(
+        actor =actor,
         alive = alive,
+        alternate_actors = alternate_actors,
+        alternate_names = alternate_names,
         ancestry = ancestry,
         dateOfBirth = dateOfBirth,
+        eyeColour = eyeColour,
         gender = gender,
-        id = id,
+        hairColour = hairColour,
+        hogwartsStaff = hogwartsStaff,
+        hogwartsStudent = hogwartsStudent,
+        house = house,
+        characterId = id,
         image = image,
+        name = name,
+        patronus = patronus,
         species = species,
-        name = name
+        wizard = wizard,
+        yearOfBirth = yearOfBirth
     )
 }

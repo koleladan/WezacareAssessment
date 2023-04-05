@@ -6,12 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.compose.wezacareassessment.harryPotter.presentation.Screens
+import com.compose.wezacareassessment.harryPotter.presentation.characters.CharactersScreen
+import com.compose.wezacareassessment.harryPotter.presentation.characters_info.CharacterInfoScreen
 import com.compose.wezacareassessment.ui.theme.WezacareassessmentTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,22 +27,29 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screens.CharactersScreen.route )
+                    {
+                        composable(
+                            route = Screens.CharactersScreen.route
+                        ){
+                            CharactersScreen(navController)
+                        }
+                        composable(
+                            route = Screens.CharacterInfoscreen.route + "/{characterId}"
+                        ){
+                            CharacterInfoScreen()
+                        }
+
+                    }
+
+
+
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    WezacareassessmentTheme {
-        Greeting("Android")
-    }
-}

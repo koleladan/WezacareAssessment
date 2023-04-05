@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.stockmarketapp'
+    namespace 'com.compose.wezacareassessment'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.stockmarketapp"
+        applicationId "com.compose.wezacareassessment"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -52,7 +52,7 @@ android {
 
 dependencies {
     //openCsv - used to pass Csv files from api
-    implementation 'com.opencsv:opencsv:5.7.1'
+    //implementation 'com.opencsv:opencsv:5.7.1'
 
     //Moshi
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
@@ -61,9 +61,9 @@ dependencies {
 
 
     // Compose Nav Destinations
-    implementation "androidx.navigation:navigation-compose:2.6.0-alpha07"
-    implementation 'io.github.raamcosta.compose-destinations:core:1.8.36-beta'
-    ksp 'io.github.raamcosta.compose-destinations:ksp:1.8.36-beta'
+    implementation "androidx.navigation:navigation-compose:2.6.0-alpha08"
+//    implementation 'io.github.raamcosta.compose-destinations:core:1.8.36-beta'
+//    ksp 'io.github.raamcosta.compose-destinations:ksp:1.8.36-beta'
 
     // Dagger - Hilt
     implementation "com.google.dagger:hilt-android:2.44"
@@ -76,13 +76,14 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.3"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // Room
-    implementation "androidx.room:room-runtime:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
+    //implementation "androidx.room:room-runtime:2.5.0"
+    //kapt "androidx.room:room-compiler:2.5.0"
 
     // Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:2.5.0"
+    //implementation "androidx.room:room-ktx:2.5.0"
 
     // Coil - for compose
     implementation"io.coil-kt:coil:2.2.2"
@@ -95,7 +96,7 @@ dependencies {
 
 
     implementation 'androidx.core:core-ktx:1.9.0'
-    //implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation 'androidx.activity:activity-compose:1.7.0'
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
@@ -106,4 +107,6 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    implementation "androidx.navigation:navigation-compose:2.6.0-alpha08"
+    implementation "androidx.navigation:navigation-compose:2.5.3"
 }
