@@ -21,7 +21,7 @@ data class CharacterInfoDto(
     val name: String?,
     val patronus: String?,
     val species: String?,
-    val wand: WandDto?,
+    val wand: Wand?,
     val wizard: Boolean?,
     val yearOfBirth: Int?
 )
@@ -44,7 +44,6 @@ fun CharacterInfoDto.toCharacterInfo(): CharacterInfo{
         name = name,
         patronus = patronus,
         species = species,
-        wand = wand?.toWand(),
         wizard = wizard,
         yearOfBirth = yearOfBirth
     )

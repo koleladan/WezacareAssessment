@@ -16,16 +16,16 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.compose.wezacareassessment.harryPotter.domain.model.Characters
-import com.compose.wezacareassessment.harryPotter.presentation.destinations.CharacterInfoScreenDestination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.compose.wezacareassessment.harryPotter.presentation.Screens
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CharactersItem(
-    navigator: DestinationsNavigator,
+    navController: NavController,
     character: Characters,
     modifier: Modifier = Modifier
 ){
@@ -37,9 +37,8 @@ fun CharactersItem(
         backgroundColor = Color.LightGray,
         elevation = 4.dp,
         onClick = {
-            navigator.navigate(
-                CharacterInfoScreenDestination()
-            )
+            navController.navigate(Screens.CharacterInfoscreen.route + "/${character.id}")
+
         }
 
     ){

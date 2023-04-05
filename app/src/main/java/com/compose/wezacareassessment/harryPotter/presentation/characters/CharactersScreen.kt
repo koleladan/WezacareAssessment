@@ -11,14 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavController
 
 @Composable
-@Destination(start = true)
 fun CharactersScreen(
-    navigator: DestinationsNavigator,
+    navController: NavController,
     viewModel: CharactersViewModel = hiltViewModel()
 
 ) {
@@ -49,7 +46,7 @@ fun CharactersScreen(
         ) {
             items(state.characters) { character ->
                 CharactersItem(
-                    navigator,
+                    navController,
                     character = character
                 )
 

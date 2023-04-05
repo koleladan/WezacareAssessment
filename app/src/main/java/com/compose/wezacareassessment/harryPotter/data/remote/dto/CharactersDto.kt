@@ -1,6 +1,7 @@
 package com.compose.wezacareassessment.harryPotter.data.remote.dto
 
 import com.compose.wezacareassessment.harryPotter.domain.model.Characters
+import com.compose.wezacareassessment.harryPotter.domain.model.Wand
 
 data class CharactersDto(
     val actor: String?,
@@ -20,7 +21,7 @@ data class CharactersDto(
     val name: String?,
     val patronus: String?,
     val species: String?,
-    val wand: WandDto?,
+    val wand: Wand?,
     val wizard: Boolean?,
     val yearOfBirth: Int?
 )

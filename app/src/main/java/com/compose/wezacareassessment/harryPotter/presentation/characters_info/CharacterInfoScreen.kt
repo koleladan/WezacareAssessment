@@ -14,15 +14,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.ramcosta.composedestinations.annotation.Destination
+
 
 
 @Composable
-@Destination
-fun CharacterInfoScreen(
-     viewModel: CharacterInfoViewModel = hiltViewModel()
-) {
-
+fun CharacterInfoScreen()
+   {
+    val viewModel: CharacterInfoViewModel = hiltViewModel()
     val state = viewModel.state.value
 
     Column(
@@ -244,28 +242,19 @@ fun CharacterInfoScreen(
                         color = Color.Black,
                         modifier = Modifier.padding(start = 10.dp, top = 2.dp)
                     )
-                    val wandStringStyle = listOf(
-                        AnnotatedString.Range(
-                            SpanStyle(fontWeight = FontWeight.Bold),
-                            start = 0,
-                            end = 5
-                        )
-                    )
-                    val wandString = "Wand: ${character.wand}"
-                    Text(
-                        text = AnnotatedString(text = wandString, spanStyles = wandStringStyle),
-                        color = Color.Black,
-                        modifier = Modifier.padding(start = 10.dp, top = 2.dp)
-                    )
 
 
 
                 }
             }
 
+
         }
 
 
+
+
     }
+
 }
 

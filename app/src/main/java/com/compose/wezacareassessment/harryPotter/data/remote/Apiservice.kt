@@ -6,14 +6,14 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface Apiservice {
-    @GET("/api/characters")
+    @GET("characters")
     suspend fun getCharacters(): List<CharactersDto>
 
-    @GET("/api/characters/{characterId}")
+    @GET("characters/{characterId}")
     suspend fun getCharacterInfo(@Path("characterId") characterId: String): CharacterInfoDto
 
     companion object {
-        const val BASE_URL = "https://hp-api.onrender.com"
+        const val BASE_URL = "https://hp-api.onrender.com/api/"
         const val CHAR_ID = "characterId"
     }
 

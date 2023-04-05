@@ -6,14 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.compose.wezacareassessment.harryPotter.presentation.NavGraphs
-
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.compose.wezacareassessment.harryPotter.presentation.Screens
+import com.compose.wezacareassessment.harryPotter.presentation.characters.CharactersScreen
+import com.compose.wezacareassessment.harryPotter.presentation.characters_info.CharacterInfoScreen
 import com.compose.wezacareassessment.ui.theme.WezacareassessmentTheme
-import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +27,24 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    DestinationsNavHost(navGraph = NavGraphs.root)
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screens.CharactersScreen.route )
+                    {
+                        composable(
+                            route = Screens.CharactersScreen.route
+                        ){
+                            CharactersScreen(navController)
+                        }
+                        composable(
+                            route = Screens.CharacterInfoscreen.route + "/{characterId}"
+                        ){
+                            CharacterInfoScreen()
+                        }
+
+                    }
+
 
 
                 }
