@@ -18,7 +18,7 @@ data class CharactersDto(
     val house: String?,
     val id: String?,
     val image: String?,
-    val name: String?,
+    val name: String,
     val patronus: String?,
     val species: String?,
     val wand: Wand?,
@@ -35,6 +35,7 @@ fun CharactersDto.toCharacters(): Characters{
         id = id,
         image = image,
         species = species,
-        name = name
+        name = name,
+        house = house
     )
 }

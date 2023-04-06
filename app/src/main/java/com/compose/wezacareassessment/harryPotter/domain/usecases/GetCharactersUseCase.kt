@@ -12,11 +12,12 @@ import javax.inject.Inject
 
 class GetCharactersUseCase @Inject constructor(
     private val repository: CharactersRepository
+
 ) {
-    operator fun invoke(): Flow<Resource<List<Characters>>> = flow {
+    operator fun invoke(query:String): Flow<Resource<List<Characters>>> = flow {
         try {
             emit(Resource.Loading<List<Characters>>())
-            val characters = repository.getCharacters().map { it.toCharacters() }
+            val characters = repository.getCharacters(query).map { it.toCharacters() }
             emit(Resource.Success<List<Characters>>(characters))
 
         }catch (e: HttpException) {
