@@ -8,7 +8,8 @@ data class Characters(
     val gender: String?,
     val id: String?,
     val image: String?,
-    val name: String?,
+    val name: String,
+    val house: String?,
     val species: String?,
 
 )

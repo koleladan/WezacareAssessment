@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.compose.wezacareassessment.core.util.Resource
 import com.compose.wezacareassessment.harryPotter.data.remote.Apiservice
+import com.compose.wezacareassessment.harryPotter.domain.model.CharacterInfo
 import com.compose.wezacareassessment.harryPotter.domain.usecases.GetCharactersInfoUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -16,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterInfoViewModel @Inject constructor(
+
     private val getCharactersInfoUseCases: GetCharactersInfoUseCases,
     savedStateHandle: SavedStateHandle
 ):ViewModel() {
@@ -26,6 +28,10 @@ class CharacterInfoViewModel @Inject constructor(
         savedStateHandle.get<String>(Apiservice.CHAR_ID)?.let { characterId ->
             getCharacterInfo(characterId)
         }
+    }
+
+    fun updateCharacter(characterInfo: CharacterInfo){
+        _state.value = CharactersInfoState(character = characterInfo)
     }
 
 

@@ -1,5 +1,7 @@
 package com.compose.wezacareassessment.harryPotter.presentation.characters_info
 
+import android.media.Image
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -7,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -14,14 +18,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.compose.wezacareassessment.harryPotter.domain.model.CharacterInfo
+import com.google.gson.Gson
+import com.ramcosta.composedestinations.annotation.Destination
+import com.compose.wezacareassessment.R
 
 
 
 @Composable
-fun CharacterInfoScreen()
+@Destination
+fun CharacterInfoScreen(id:String)
    {
     val viewModel: CharacterInfoViewModel = hiltViewModel()
+       val info = Gson().fromJson(id,CharacterInfo::class.java)
+       viewModel.updateCharacter(characterInfo = info)
     val state = viewModel.state.value
+
 
     Column(
         modifier = Modifier
@@ -37,13 +49,25 @@ fun CharacterInfoScreen()
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(20.dp))
-                AsyncImage(
-                    model =character.image ,
-                    contentDescription = "Character's Image",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp)
-                )
+               if (character.image.isNullOrEmpty()){
+                   Image(
+                       painterResource(id = R.drawable.image_not_available) ,
+                       contentDescription = "",
+                       modifier = Modifier
+                           .height(250.dp)
+                   )
+
+               }else {
+                   AsyncImage(
+                       model = character.image,
+                       contentDescription = "Character's Image",
+                       modifier = Modifier
+                           .height(350.dp)
+                           .fillMaxWidth()
+
+
+                   )
+               }
                 Spacer(modifier = Modifier.height(20.dp))
                 Column(
                     modifier = Modifier

@@ -9,12 +9,12 @@ import javax.inject.Inject
 class CharactersRepositoryImp @Inject constructor(
     private val apiService: Apiservice
 ):CharactersRepository {
-    override suspend fun getCharacters(): List<CharactersDto> {
+    override suspend fun getCharacters(query: String): List<CharactersDto> {
         return apiService.getCharacters()
     }
 
-    override suspend fun getCharacterInfo(characterId: String): CharacterInfoDto {
-        return apiService.getCharacterInfo(characterId)
+    override suspend fun getCharacterInfo(id: String): CharacterInfoDto {
+        return apiService.getCharacterInfo(id)
     }
 
 

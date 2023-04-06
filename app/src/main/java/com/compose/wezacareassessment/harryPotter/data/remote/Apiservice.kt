@@ -4,13 +4,14 @@ import com.compose.wezacareassessment.harryPotter.data.remote.dto.CharacterInfoD
 import com.compose.wezacareassessment.harryPotter.data.remote.dto.CharactersDto
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface Apiservice {
     @GET("characters")
     suspend fun getCharacters(): List<CharactersDto>
 
-    @GET("characters/{characterId}")
-    suspend fun getCharacterInfo(@Path("characterId") characterId: String): CharacterInfoDto
+    @GET("characters/{id}")
+    suspend fun getCharacterInfo(@Path("id") id: String): CharacterInfoDto
 
     companion object {
         const val BASE_URL = "https://hp-api.onrender.com/api/"

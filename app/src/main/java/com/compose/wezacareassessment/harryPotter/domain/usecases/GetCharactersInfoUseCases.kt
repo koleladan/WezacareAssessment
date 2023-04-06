@@ -13,10 +13,10 @@ import javax.inject.Inject
 class GetCharactersInfoUseCases @Inject constructor(
 private val repository: CharactersRepository
 ) {
-    operator fun invoke(characterId:String): Flow<Resource<CharacterInfo>> = flow {
+    operator fun invoke(id:String): Flow<Resource<CharacterInfo>> = flow {
         try {
             emit(Resource.Loading<CharacterInfo>())
-            val character = repository.getCharacterInfo(characterId).toCharacterInfo()
+            val character = repository.getCharacterInfo(id).toCharacterInfo()
             emit(Resource.Success<CharacterInfo>(character))
 
         } catch (e: HttpException) {
